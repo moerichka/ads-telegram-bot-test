@@ -1,23 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+
+import "./App.css";
 
 function App() {
+  useEffect(() => {
+    if (window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+    }
+  }, []);
+
+  const onSendData = () => {
+    if (window.Telegram.WebApp) {
+      window.Telegram.WebApp.sendData(
+        JSON.stringify({ message: "Hello from Web App!" })
+      );
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Welcome to My Telegram Mini App</h1>
+        <p>This is a mini app integrated with Telegram.</p>
+        <button onClick={onSendData}>Send Data to Telegram</button>
       </header>
     </div>
   );
